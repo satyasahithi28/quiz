@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz Game</title>
+  <style>
+    body {
+      font-family: Arial;
+      background-color: lightgrey;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .quiz-box {
+      background-color: white;
+      border: 2px solid gray;
+      padding: 20px;
+      border-radius: 10px;
+      width: 500px;
+      margin: auto;
+    }
+
+    h2 {
+      color: darkblue;
+    }
+
+    .question {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: lightblue;
+      padding: 10px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 30px;
+      font-weight: bold;
+    }
+
+    .review {
+      text-align: left;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-box">
+    <h2>Quiz Game</h2>
+
+    <div class="question">
+      <p>1. What does HTML stand for?</p>
+      <input type="radio" name="q1" value="Hyper Text Makeup Language"> Hyper Text Makeup Language<br>
+      <input type="radio" name="q1" value="Hyperlink and Text Markup Language"> Hyperlink and Text Markup Language<br>
+      <input type="radio" name="q1" value="Hyper Text Markup Language"> Hyper Text Markup Language<br>
+      <input type="radio" name="q1" value="HighText Machine Language"> HighText Machine Language<br>
+    </div>
+
+    <div class="question">
+      <p>2. Which of the following is not a JavaScript data type?</p>
+      <input type="radio" name="q2" value="Integer"> Integer <br>
+      <input type="radio" name="q2" value="Number"> Number<br>
+      <input type="radio" name="q2" value="Boolean"> Boolean<br>
+      <input type="radio" name="q2" value="Decimal"> Decimal<br>
+    </div>
+
+    <div class="question">
+      <p>3. What is the main purpose of media queries in CSS?</p>
+      <input type="radio" name="q3" value="Embedding media files"> Embedding media files<br>
+      <input type="radio" name="q3" value="Creating variables"> Creating variables<br>
+      <input type="radio" name="q3" value="Making responsive designs"> Making responsive designs<br>
+      <input type="radio" name="q3" value="Adding animations"> Adding animations<br>
+    </div>
+
+    <div class="question">
+      <p>4. What is the default position of an HTML element in CSS?</p>
+      <input type="radio" name="q4" value="Absolute"> Absolute<br>
+      <input type="radio" name="q4" value="Static"> Static<br>
+      <input type="radio" name="q4" value="Relative"> Relative<br>
+      <input type="radio" name="q4" value="Fixed"> Fixed<br>
+    </div>
+
+    <div class="question">
+      <p>5. Which JavaScript method is used to select an element by its ID?</p>
+      <input type="radio" name="q5" value="getElementByClass()"> getElementByClass() <br>
+      <input type="radio" name="q5" value="querySelectorAll()"> querySelectorAll() <br>
+      <input type="radio" name="q5" value="getElementById()"> getElementById() <br>
+      <input type="radio" name="q5" value="getId()"> getId() <br>
+    </div>
+
+    <button onclick="submitQuiz()">Submit Answers</button>
+
+    <div id="result"></div>
+    <div class="review" id="review"></div>
+  </div>
+
+  <script>
+    function submitQuiz() {
+      let score = 0;
+      let answers = {
+        q1: "Hyper Text Markup Language",
+        q2: "Integer",
+        q3: "Making responsive designs",
+        q4: "Static",
+        q5: "getElementById()"
+      };
+
+      let userAnswers = {};
+      for (let key in answers) {
+        let selected = document.querySelector('input[name="' + key + '"]:checked');
+        if (selected) {
+          userAnswers[key] = selected.value;
+          if (selected.value === answers[key]) {
+            score += 2;
+          }
+        } else {
+          userAnswers[key] = "No answer";
+        }
+      }
+
+      document.getElementById("result").innerHTML = "<h3>Your Score: " + score + " / 10</h3>";
+
+      let reviewHTML = "<h4>Answer Review:</h4><ul>";
+      let i = 1;
+      for (let key in answers) {
+        reviewHTML += "<li>Q" + i + ": Your answer = <b>" + userAnswers[key] + "</b>, Correct = <b>" + answers[key] + "</b></li>";
+        i++;
+      }
+      reviewHTML += "</ul>";
+      document.getElementById("review").innerHTML = reviewHTML;
+
+      let allInputs = document.querySelectorAll('input[type="radio"]');
+      allInputs.forEach(input => input.disabled = true);
+    }
+  </script>
+
+</body>
+</html>
